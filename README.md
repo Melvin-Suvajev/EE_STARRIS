@@ -1,2 +1,2 @@
 # EE_STARRIS
-Energy-Efficient eamforming in STAR-RIS Assisted Wireless Networks 
+Energy-efficient beamforming in STAR-RIS assisted wireless networks using deep reinforcement learning
