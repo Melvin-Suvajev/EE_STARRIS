@@ -1,3 +1,4 @@
+'''
 from comyx.network import (
     UserEquipment,
     BaseStation,
@@ -11,7 +12,7 @@ from comyx.utils import dbm2pow, get_distance, generate_seed, db2pow
 
 import numpy as np
 from numba import jit
-from matplotlib import pyplot as plt
+
 
 CRt = 0 #Achievable communication rate for User on transmitter side
 CRr = 0 #Achievable communication rate for User on reflector side
@@ -29,8 +30,8 @@ temperature = 300 # Kelvin
 N0 = -80 #power of AWGN (dBm)
 N0_lin = dbm2pow(N0)
 
-M = 4 #number of antenna at the BS
-N = 30 #number of  STAR-RIS elements
+N = 4 #number of antenna at the BS
+M = 30 #number of  STAR-RIS elements
 
 los_fading = {"type": "rayleigh", "sigma": 1 / 2} #G(n)LoS & h(n)LoS componenets both follow Rayleigh fading
 
@@ -134,3 +135,25 @@ plt.savefig("testgraph", dpi = 300, bbox_inches = "tight")
 
 print("energy efficiency of transmission is " , EE_t)
 print("energy efficiency of reflection is " , EE_r)
+
+
+'''
+
+
+#attempt to rebuild without comyx library
+import numpy as np
+from matplotlib import pyplot as plt
+
+M = 30 #number of elements in the STAR-RIS
+N = 10 #number of antennae in the BS
+P_c = 40 #total power comsumption (dBm)
+
+G = np.zeros((M,N))
+v_ut = np.zeros((1, M))
+v_ur = np.zeros((1, M))
+
+PHI_T = np.zeros(M) #transmission coefficients
+PHI_R = np.zeros(M) #reflection coefficients
+
+#print("this is the G matrix", G)
+#print("and this is the v matrix", v_ut)
