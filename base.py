@@ -200,3 +200,4 @@ def rician_channel():
 
 #print("LoS of G is", G_nlos)
 #print("LoS of v is" ,v_nlos_i)
+#mergetest
