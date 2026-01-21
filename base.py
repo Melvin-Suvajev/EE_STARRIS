@@ -142,18 +142,61 @@ print("energy efficiency of reflection is " , EE_r)
 
 #attempt to rebuild without comyx library
 import numpy as np
+import math as math
 from matplotlib import pyplot as plt
 
 M = 30 #number of elements in the STAR-RIS
 N = 10 #number of antennae in the BS
 P_c = 40 #total power comsumption (dBm)
 
-G = np.zeros((M,N))
-v_ut = np.zeros((1, M))
-v_ur = np.zeros((1, M))
+G = np.zeros((M,N), dtype='float32') #channel between BS and STAR-RIS
+v_ut = np.zeros((M, 1), dtype='float32') #channel between UT and STAR-RIS
+v_ur = np.zeros((M, 1), dtype='float32') #channel between UR and STAR-RIS
+
+G_nlos = np.zeros((M,N), dtype='float32') #nLos components of G channel 
+v_nlos_i = np.zeros((M,1), dtype='float32') #nLos components of v channels
+
+o_2_dBm = -80 #power of AWGN (dBm)
+o_2 = (10**(-80/10)) #power of AWGN (W)
+p_0_dB = -30 #path loss at reference distance 1m (dB)
+p_0 = 10**(-30/10) #conversion to amplitude
+d_G = 50 #distance between BS and STAR-RIS (m)
+a_BR = 2.2 #path loss exponent between BS and STAR-RIS
+a_RU = 2.5 #path loss exponent between STAR-RIS and user
+K_BR = 10 #Rician factor between BS and STAR-RIS
+K_RU = 10 #Rician factor between STAR-RIS and user
+
+d_ut = 5 #distance between STAR-RIS and user on transmission side (m)
+d_ur = 10 #distance between STAR-RIS and user on reflection side (m)
 
 PHI_T = np.zeros(M) #transmission coefficients
 PHI_R = np.zeros(M) #reflection coefficients
 
 #print("this is the G matrix", G)
 #print("and this is the v matrix", v_ut)
+
+#function to generate G and v_i
+def rayleigh_fading():
+    for i in range(M):
+        for j in range(N):
+            G_nlos[i,j] = 1 - np.exp(-(j**2)/(2)) #defining the channel between each element of the STAR RIS and each antenna of the BS
+           # print("j is currently", j)
+           # print("answer this time is ", G_nlos[i,j])
+            
+       # print("i is currently", i)
+        
+
+    for i in range(M):
+        v_nlos_i[i,:] = 1 - np.exp((-(i**2)/(2))) #defining the channel between each user and each element
+        
+    
+'''
+def rician_channel():
+    G = np.sqrt()
+    return
+'''
+#rayleigh_fading()
+#sanity_check = 1 - np.exp(-1/2)
+
+#print("LoS of G is", G_nlos)
+#print("LoS of v is" ,v_nlos_i)
